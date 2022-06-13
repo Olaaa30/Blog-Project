@@ -47,11 +47,28 @@
           <li>
             <a> Welcome: {{user.username}}</a>
           </li>
+          {% else %}
+          <li>
+            <a href="{% url 'login' %}">
+              <span class="glyphicon-user"></span>
+            </a>
+          </li>
         {% endif %}
       </ul>
       </div>
 
     </nav>
+    <div class="content container">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="blog_posts">
+            {% block content%}
+
+            {% endblock %}
+          </div>
+        </div>
+      </div>
+    </div>
 
 
 
