@@ -8,7 +8,6 @@
   {% else %}
   <a class="btn btn-default" href="{% url 'post_publish' pk=post.pk %}"></a>
 {% endif %}
-
   <p class="postcontent">{{ post.title|safe||linebreaksbr}}</p>
 
   {% if user.is_authenticated %}
@@ -23,5 +22,27 @@
   <hr>
   <a class="btn btn-primary btn-comment" href="{% url 'add_comment' pk=post.pk %}"></a>
 
+  <div class="container">
+    {% for comment in post.comments.all %}
+    <br>
+      {%if user.is_authenticated or comment.approved%}
+        {{comment.created_date}}
+       {% if not comment.approve_comment %}
+       <a class="btn btn-primary" href="{% url 'comment_approve' pk=post.pk %}">
+         <span class="glyphicon glyphicon-ok"></span>
+       </a>
+       <a class="btn btn-primary" href="{% url 'comment_remove' pk=comment.pk %}">
+         <span class="glyphicon glyphicon-remove"></span>
+       </a>
+       {% endif %}
+
+       <p>{{comment.text|safe|linebreaks}}</p>
+       <p>Posted By: {{comment.author}}</p>
+
+      {% endif %}
+      {% empty %}
+      <p>No Comments</p>
+    {% endfor %}
+  </div>
 
 {% endblock %}
