@@ -1,2 +1,2 @@
 # Blog-Project
-A personal project
+A blog website.
